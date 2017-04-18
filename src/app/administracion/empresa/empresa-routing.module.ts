@@ -6,9 +6,9 @@ import { EmpresaDetalleComponent } from './empresa-detalle.component';
 import { EmpresaCrearComponent } from './empresa-crear.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'control', pathMatch: 'full' },
   {
-    path : '',
-    component : EmpresaComponent,
+    path : 'control', component : EmpresaComponent,
     children: [
       {path: '', component: EmpresaListarComponent},
       {path: 'empresas', component :  EmpresaCrearComponent},
