@@ -7,9 +7,9 @@ import './rxjs-operators';
 import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent} from './error404.component';
 import { AppComponent } from './app.component';
-import { HomeModule } from './administracion/home/home.module';
-import { EmpresaModule } from './administracion/empresa/empresa.module';
-import { SucursalModule } from './administracion/sucursal/sucursal.module';
+import { HomeModule } from './control-de-produccion/home/home.module';
+import { EmpresaModule } from './control-de-produccion/empresa/empresa.module';
+import { SucursalModule } from './control-de-produccion/sucursal/sucursal.module';
 import { AppRoutingModule } from './app-routing.module';
 
 

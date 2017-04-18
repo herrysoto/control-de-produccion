@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'sucursal/:sucursalId', component: SucursalEditarComponent }
     ]
   },
-  { path: 'usuario/:sucursalId', loadChildren: 'app/administracion/usuario/usuario.module#UsuarioModule' }
+  { path: 'usuario/:sucursalId', loadChildren: 'app/control-de-produccion/usuario/usuario.module#UsuarioModule' }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -1,4 +1,4 @@
-import { LoggerModule } from './../administracion/logger/logger.module';
+import { LoggerModule } from './../control-de-produccion/logger/logger.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

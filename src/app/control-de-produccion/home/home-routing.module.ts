@@ -10,7 +10,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {path: '' , component : HomeComponent,
     children: [
-        {path : '', loadChildren : 'app/administracion/empresa/empresa.module#EmpresaModule'}
+        {path : '', loadChildren : 'app/control-de-produccion/empresa/empresa.module#EmpresaModule'}
     ]}
 ];
 @NgModule({
