@@ -8,9 +8,10 @@ import { EmpresaRoutingModule } from './empresa-routing.module';
 import { EmpresaService } from './empresa.service';
 import { UbigeoService} from '../ubigeo/ubigeo.service';
 import { EmpresaCrearComponent } from './empresa-crear.component'; 
+import {CalendarModule} from 'primeng/primeng';
 
 @NgModule({
-  imports: [ SharedModule, EmpresaRoutingModule ],
+  imports: [ SharedModule, EmpresaRoutingModule ,CalendarModule],
   declarations: [EmpresaComponent, EmpresaListarComponent, EmpresaDetalleComponent, EmpresaCrearComponent],
   providers: [EmpresaService, UbigeoService]
 })

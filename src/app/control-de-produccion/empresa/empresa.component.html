@@ -2,10 +2,23 @@
     <div class="col-sm-12 ">
         <h1 class="page-header">Empresas</h1>
     </div>
-    <div class="col-sm-12">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    Ordenes por asignar 
+                     De : 
+                     <p-calendar [(ngModel)]="fecini" dateFormat="dd/mm/yy"></p-calendar> 
+                     Al :   
+                     <p-calendar [(ngModel)]="fecini" dateFormat="dd/mm/yy" ></p-calendar>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!--<div class="col-sm-12">
         <button type="button" class="btn btn-default" [routerLink]="['/empresas']">Crear Empresa</button>
     </div>
-     <div class="col-lg-12">
-    <router-outlet></router-outlet>
-</div>
+    <div class="col-lg-12">-->
+        <router-outlet></router-outlet>
+    <!--</div>-->
 </div>
