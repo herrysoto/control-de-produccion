@@ -1,3 +1,5 @@
+import { BeanClienteVehiculo } from './Bean/BeanClienteVehiculo';
+import { BeanCliente } from './Bean/BeanCliente';
 import { BeanControldeproduccion } from './Bean/BeanControldeproduccion';
 import { Controlproduccionservice } from './principal.service';
 import { Pipe, PipeTransform } from '@angular/core';
@@ -16,8 +18,9 @@ export class PrincipalComponent implements OnInit {
     fechafin: Date= new Date();
     es: any;
     beancontroldeproduccion: BeanControldeproduccion[];
+    beancliente : BeanCliente[];
+    beanclientevehiculo : BeanClienteVehiculo[];
     errorMessage: string;
-
     fecIniS:string;
     fecFinS:string;
     dateFormat:string =  'dd/MM/yyyy';
@@ -36,6 +39,7 @@ export class PrincipalComponent implements OnInit {
         this._controlproduccionservice.getgrillaporcategoria(valor,'01')
                 .subscribe(
                        cuadro => {this.beancontroldeproduccion = cuadro
+                            console.log(this.beancontroldeproduccion);
                         },
                        error =>  this.errorMessage = <any>error);}
 
@@ -71,6 +75,55 @@ export class PrincipalComponent implements OnInit {
                         },
                        error =>  this.errorMessage = <any>error
         );
+    }
+
+    ObtenerGrillaPorOS(codigoOS:string){
+        if(codigoOS == ''){
+            alert("Tiene que ingresar un el código");
+        }else{
+            this._controlproduccionservice.getgrillaporOS('01',codigoOS)
+                 .subscribe(
+                        cuadro => {this.beancontroldeproduccion = cuadro
+                        
+                         },
+                        error =>  this.errorMessage = <any>error);
+        }
+         
+    }
+
+    ObtenerGrillaPorLlave(nroLlave:number){
+        // console.log(Number(nroLlave));
+        if(isNaN(Number(nroLlave))){
+            alert("Solo se pueden ingresar número");
+        }else{
+            this._controlproduccionservice.getgrillaporLlave('01',nroLlave)
+                 .subscribe(
+                        cuadro => {this.beancontroldeproduccion = cuadro
+                        
+                         },
+                        error =>  this.errorMessage = <any>error);
+        }
+         
+    }
+
+    ObtenerCliente(doccliente:string){
+        this.beanclientevehiculo = null;
+        this._controlproduccionservice.getcliente(doccliente)
+            .subscribe(
+                        cuadro => {this.beancliente = cuadro
+                            console.log(this.beancliente)
+                         },
+                        error =>  this.errorMessage = <any>error);
+    }
+
+    ObtenerClienteVehiculo(placa:string,chasis:string){
+         this.beancliente = null;
+         this._controlproduccionservice.getclientevehiculo(placa,chasis)
+             .subscribe(
+                         cuadro => {this.beanclientevehiculo = cuadro
+                            console.log(this.beanclientevehiculo);
+                          },
+                         error =>  this.errorMessage = <any>error);
     }
 
     ngOnInit() { 

@@ -1,3 +1,5 @@
+import { BeanClienteVehiculo } from './Bean/BeanClienteVehiculo';
+import { BeanCliente } from './Bean/BeanCliente';
 import { BeanControldeproduccion } from './Bean/BeanControldeproduccion';
 
 import { Injectable } from '@angular/core';
@@ -16,6 +18,10 @@ export class Controlproduccionservice {
     private _produccion1Url = 'http://localhost:8080/api/v1/ordenesservicio'; //JAVA
     private _produccion2Url = 'http://localhost:8080/api/v1/grillaportecnico';
     private _produccion3Url = 'http://localhost:8080/api/v1/grillaporfecha';
+    private _produccion4Url = 'http://localhost:8080/api/v1/grillaporOS';
+    private _produccion5Url = 'http://localhost:8080/api/v1/grillapornrollave';
+    private _produccion6Url = 'http://localhost:8080/api/v1/datoscliente';
+    private _produccion7Url = 'http://localhost:8080/api/v1/datosclientevehiculo';
    
   lessons = [];
   constructor(private http: Http) { }
@@ -38,6 +44,37 @@ export class Controlproduccionservice {
 
   getgrillaporfecha(codsucursal: string,fechainicial:string,fechafinal:string): Observable<BeanControldeproduccion[]> {
     return this.http.get(this._produccion3Url + '/' + codsucursal+'/'+fechainicial+'/'+fechafinal)
+      .map((res: Response) => res.json())
+
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+
+  }
+
+  getgrillaporOS(codsucursal: string,codigoOS:string): Observable<BeanControldeproduccion[]> {
+    return this.http.get(this._produccion4Url + '/' + codsucursal+'/'+codigoOS)
+      .map((res: Response) => res.json())
+
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+
+  }
+  getgrillaporLlave(codsucursal: string,nroLlave:number): Observable<BeanControldeproduccion[]> {
+    return this.http.get(this._produccion5Url + '/' + codsucursal+'/'+nroLlave)
+      .map((res: Response) => res.json())
+
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+
+  }
+
+  getcliente(doccliente: string): Observable<BeanCliente[]> {
+    return this.http.get(this._produccion6Url + '/' + doccliente)
+      .map((res: Response) => res.json())
+
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+
+  }
+
+  getclientevehiculo(placa: string,chasis:string): Observable<BeanClienteVehiculo[]> {
+    return this.http.get(this._produccion7Url + '/' + placa+'/'+chasis)
       .map((res: Response) => res.json())
 
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

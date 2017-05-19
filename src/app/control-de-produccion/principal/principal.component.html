@@ -41,7 +41,7 @@
               Buscar
           </a>
           <div class="collapse" id="primerboton">
-            <div class="well" style="float: left;width: 80%;">
+            <div class="well" style="float: left;width: 100%;">
               <div class="row">
 
                 <div class="col-lg-12">
@@ -50,50 +50,53 @@
                     <form>
                       <div class="col-sm-12">
                         <div class="row">
-                          <div class="col-sm-3 form-group">
-                            <label for="ruc">Nombre del cliente:</label>
-                            <input type="text" name="ruc"  required   class="form-control">
+                          <div class="col-sm-3 form-group" >
+                            <label for="nombre">Nombre del cliente:</label>
+                            <input *ngIf='beancliente && !beanclientevehiculo' type="text" name="nombre" [(value)]="beancliente[0].nombreCompleto" required   class="form-control">
+                            <input *ngIf='beanclientevehiculo' type="text" name="nombre" [(value)]="beanclientevehiculo[0].nombreCompleto" required   class="form-control">
+                            <input  *ngIf='!beancliente && !beanclientevehiculo' type="text" name="nombre"  required   class="form-control">
                           </div>
                           <div class="col-sm-3 form-group">
-                            <label for="nombre">DNI</label>
-                            <input type="text" name="nombre" required class="form-control"
-                              #nombre>
-                          </div>
-
-                          <div class="col-sm-3 form-group">
-                            <label for="direccion">Datos del carro</label>
-                            <input type="text" name="direccion"  required 
-                              class="form-control">
+                            <label for="doc">Doc Cliente</label>
+                            <input *ngIf='beancliente && !beanclientevehiculo' type="text" name="doc" [(value)]="beancliente[0].documento" required class="form-control">
+                            <input *ngIf='beanclientevehiculo' type="text" name="doc" [(value)]="beanclientevehiculo[0].documento" required class="form-control">
+                            <input *ngIf='!beancliente && !beanclientevehiculo' type="text" name="doc" required class="form-control">
                           </div>
 
                           <div class="col-sm-3 form-group">
-                            <label for="celular">Placa</label>
-                            <input type="text" name="celular"  required 
-                              class="form-control">
+                            <label for="vehiculo">Modelo</label>
+                            <input *ngIf='beanclientevehiculo' type="text" name="vehiculo" [(value)]="beanclientevehiculo[0].vehiculo"  required class="form-control">
+                            <input *ngIf='!beanclientevehiculo' type="text" name="vehiculo"  required class="form-control">
                           </div>
 
                           <div class="col-sm-3 form-group">
-                            <label for="celular">Mátricula</label>
-                            <input type="text" name="celular"  required 
-                              class="form-control">
+                            <label for="placa">Placa</label>
+                            <input *ngIf='beanclientevehiculo' type="text" name="placa" [(value)]="beanclientevehiculo[0].placa"  required class="form-control">
+                            <input *ngIf='!beanclientevehiculo' type="text" name="placa"  required class="form-control">
                           </div>
 
                           <div class="col-sm-3 form-group">
-                            <label for="celular">Sección</label>
-                            <input type="text" name="celular"  required 
-                              class="form-control">
+                            <label for="vin">Chasis</label>
+                            <input *ngIf='beanclientevehiculo' type="text" name="vin" [(value)]="beanclientevehiculo[0].vin" required class="form-control">
+                            <input *ngIf='!beanclientevehiculo' type="text" name="vin"  required class="form-control">
                           </div>
 
                           <div class="col-sm-3 form-group">
-                            <label for="celular">Color del carro</label>
-                            <input type="text" name="celular"  required 
-                              class="form-control">
+                            <label for="motor">Motor</label>
+                            <input *ngIf='beanclientevehiculo'  type="text" name="motor"  [(value)]="beanclientevehiculo[0].motor" required class="form-control">
+                            <input *ngIf='!beanclientevehiculo' type="text" name="motor"  required class="form-control">
                           </div>
 
                           <div class="col-sm-3 form-group">
-                            <label for="celular">Año del carro</label>
-                            <input type="text" name="celular"  required 
-                              class="form-control">
+                            <label for="color">Color del carro</label>
+                            <input *ngIf='beanclientevehiculo'  type="text" name="color" [(value)]="beanclientevehiculo[0].color" required class="form-control">
+                            <input *ngIf='!beanclientevehiculo' type="text" name="color"  required class="form-control">
+                          </div>
+
+                          <div class="col-sm-3 form-group">
+                            <label for="anio">Año del carro</label>
+                            <input *ngIf='beanclientevehiculo'   type="text" name="anio" [(value)]="beanclientevehiculo[0].anio" required class="form-control">
+                            <input  *ngIf='!beanclientevehiculo' type="text" name="anio"  required class="form-control">
                           </div>
                         </div>
                       </div>
@@ -134,12 +137,12 @@
           </div>
           <div style="display: inline-block;margin-left: 40px;">
             <h5>
-              Llave: <input type="text" style="width: 83px;"/>
+              Llave: <input type="text" style="width: 83px;" #nroLlave (keyup.enter)="ObtenerGrillaPorLlave(nroLlave.value)"/>
             </h5>
           </div>
           <div style="display: inline-block;margin-left: 15px;">
             <h5>
-              Nro.O/S: <input type="text" style="width: 83px;"/>
+              Nro.O/S: <input type="text" style="width: 83px;" #codigoOS (keyup.enter)="ObtenerGrillaPorOS(codigoOS.value)" />
             </h5>
           </div>
         </h4>
@@ -335,12 +338,14 @@
      <div id="secondtable" style="width: 100%;position: relative;overflow-y: scroll;top: -21px;height: 150px;">
             <table class="table table-bordered mytable table-hover" *ngIf='beancontroldeproduccion && beancontroldeproduccion.length' style="width: 100%;table-layout: fixed;display: table;" border="1"  cellpadding="9" cellspacing="0" align="center">
               <tbody style="overflow-y: auto !important;">
-                <tr class="tt" style="cursor: pointer;font-size: 11px;" *ngFor="let controldeproduccion of beancontroldeproduccion; let i = index" >
+                <tr class="tt" style="font-size: 11px;" *ngFor="let controldeproduccion of beancontroldeproduccion; let i = index" >
                   <td style="text-align: left;font-size: 10px !important;width: 120px;"><b style="font-size: 11px !important;">{{controldeproduccion.codigo}} </b> <div style="float:right;font-size: 9px !important;">{{controldeproduccion.llave}}</div></td>
                   <td style="font-size: 10px !important;width: 65px;">{{controldeproduccion.fechacreacion}}<br>{{controldeproduccion.horacreacion}}</td>
-                  <td style="font-size: 10px !important;"><u><b style="font-size: 11px !important;">{{controldeproduccion.nombre}}</b></u><br>{{controldeproduccion.asesor}}</td>
-                  <td style="text-align:left;font-size: 10px !important;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;" title="{{controldeproduccion.carro}}"><b style="font-size: 11px !important;">{{controldeproduccion.carro}}</b></td>
-                  <td style="text-align:left;font-size: 10px !important;width: 60px;"><b style="font-size: 11px !important;">{{controldeproduccion.placa}}</b><br>{{controldeproduccion.kilometraje}}</td>
+                  <td style="font-size: 10px !important;"><u><b style="cursor: pointer;font-size: 11px !important;font-weight: bold;" (click)="ObtenerCliente(controldeproduccion.doccliente)">{{controldeproduccion.nombre}}</b></u><br>{{controldeproduccion.asesor}}</td>
+                  <td style="text-align:left;font-size: 10px !important;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;" title="{{controldeproduccion.carro}}"><b style="font-size: 11px !important;font-weight: bold;">
+                    {{controldeproduccion.carro}}</b><br>{{controldeproduccion.colores}}-{{controldeproduccion.anio}}</td>
+                  <td style="text-align:left;font-size: 10px !important;width: 60px;"><u><b style="cursor: pointer;font-size: 11px !important;font-weight: bold;" (click)="ObtenerClienteVehiculo(controldeproduccion.placa,controldeproduccion.vin)">
+                    {{controldeproduccion.placa}}</b></u><br>{{controldeproduccion.kilometraje}}</td>
                   <td style="text-align:left;font-size: 10px !important;width: 175px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;" title="{{controldeproduccion.observacion}}"><b style="font-size: 11px !important;">{{controldeproduccion.observacion}}</b></td>
                   <td style="text-align:right;font-size: 10px !important;width: 65px;"><b style="font-size: 11px !important;">{{controldeproduccion.total}}</b></td>
                   <td style="text-align:right;font-size: 10px !important;width: 25px;">{{controldeproduccion.estope}}</td>
